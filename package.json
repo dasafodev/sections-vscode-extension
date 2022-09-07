@@ -1,8 +1,9 @@
 {
   "name": "index-code",
-  "displayName": "index-code",
+  "displayName": "Sections",
   "description": "",
-  "version": "0.0.1",
+  "icon": "resources/icon.png",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -10,17 +11,10 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:index-code.helloWorld",
     "onView:index-code"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "index-code.helloWorld",
-        "title": "Hello World"
-      }
-    ],
     "views": {
       "explorer": [
         {
@@ -50,5 +44,9 @@
     "mocha": "^10.0.0",
     "typescript": "^4.7.4",
     "@vscode/test-electron": "^2.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dasafodev/sections-vscode-extension"
   }
 }

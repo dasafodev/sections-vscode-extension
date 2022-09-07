@@ -18,27 +18,46 @@ export class IndexProvider implements vscode.TreeDataProvider<Section> {
   }
 
   getChildren(element?: Section): Thenable<Section[]> {
-    return Promise.resolve(this.getDepsInPackageJson());
+    return Promise.resolve(this.getSections(element));
   }
 
-  /**
-   * Given the path to package.json, read all its dependencies and devDependencies.
-   */
-  private getDepsInPackageJson(): Section[] {
+  private getSections(section?: Section): Section[] {
     const doc: string =
       vscode.window.activeTextEditor?.document.getText() ?? "";
     const regex = /\/{3}.*\[.*\]/g;
     const matches = doc.match(regex);
     const lines = doc.split(/\r\n|\r|\n/);
+    const sectionsLabels: Set<String> = new Set();
     const sections: Section[] = [];
     matches?.forEach((element) => {
-      const label = element.split("[")[1].split("]")[0];
+      const title = element.split("[")[1].split("]")[0];
       const lineNumber = lines.findIndex((line) => line.includes(element));
-      sections.push(
-        new Section(label, vscode.TreeItemCollapsibleState.None, lineNumber)
-      );
+      const headerSplit = title.split("/");
+      const hasHeader = headerSplit.length > 1;
+      const label = hasHeader ? headerSplit[0] : title;
+      if (section && hasHeader && headerSplit[0] === section.label) {
+        sections.push(
+          new Section(
+            headerSplit[1],
+            vscode.TreeItemCollapsibleState.None,
+            lineNumber
+          )
+        );
+      }
+      if (section === undefined && !sectionsLabels.has(label)) {
+        sectionsLabels.add(label);
+        sections.push(
+          new Section(
+            label,
+            hasHeader
+              ? vscode.TreeItemCollapsibleState.Collapsed
+              : vscode.TreeItemCollapsibleState.None,
+            lineNumber
+          )
+        );
+      }
     });
-    return sections;
+    return Array.from(sections);
   }
 }
 
