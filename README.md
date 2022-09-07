@@ -19,3 +19,6 @@ This will create a new title in the **_sections in your file_** window of your v
 ```
 
 With this syntax you will create a section that can contain other subsections
+###### Example
+
+![example](https://github.com/dasafodev/sections-vscode-extension/blob/main/media/example-gif.gif?raw=true)
