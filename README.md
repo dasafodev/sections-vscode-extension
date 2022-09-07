@@ -1,6 +1,21 @@
-# index-code README
+# Sections in your code
 
-With this plugin you will be able to separate your code in all the sections you want and navigate between them.
-To create a section you need to use the following syntax:
+Sections will allow you to create sections in your dart code files and quickly navigate between them.
 
+###There are two ways to create a section:
+
+######The simple way
+
+```
 /// [section_title]
+```
+
+This will create a new title in the **_sections in your file_** window of your visual studio code.
+
+######With sub-sections
+
+```
+/// [header/subsection_title]
+```
+
+With this syntax you will create a section that can contain other subsections
